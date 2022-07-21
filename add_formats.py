@@ -13,7 +13,6 @@ for folder in subfolders:
             search = re.search(format+"$", folder)
             if (search):
                 size_found = True
-    if(folder_is_format):
         if(size_found):
             print("keeping folder", folder)
         else:
