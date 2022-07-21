@@ -4,9 +4,27 @@ with open('scenario.json', 'r') as f:
     scenario = json.load(f)
 
 formats = scenario["creatives"]
+# remove unneeded sizes
+subfolders = [ f.path for f in os.scandir() if f.is_dir() ]
+for folder in subfolders:
+    folder_is_format = os.path.exists(folder+'\settings.json')
+    if (folder_is_format):
+        size_found = False
+        for format in formats:
+            search = re.search(format, folder)
+            if (search):
+                size_found = True
+    if(folder_is_format):
+        if(size_found):
+            print("keeping folder", folder)
+        else:
+            print("removing folder", folder)
+            shutil.rmtree(folder)
+# add new sizes
 for format in formats:
     format_exists = os.path.exists(format)
     if not format_exists:
+        print("adding folder", format, "based on", formats[0])
         # os.mkdir(format)
         shutil.copytree(formats[0], format)
         with open(format+'\settings.json', 'r') as f:
