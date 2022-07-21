@@ -3,7 +3,6 @@ import os, re, json, shutil
 with open('scenario.json', 'r') as f:
     scenario = json.load(f)
 formats = scenario["creatives"]
-
 # remove unneeded sizes
 subfolders = [ f.path for f in os.scandir() if f.is_dir() ]
 for folder in subfolders:
