@@ -31,9 +31,10 @@ for format in formats:
         if "BANNER_WIDTH" in format_settings["MACROS"]:
             format_settings["MACROS"]["BANNER_WIDTH"]=sizes.group(1)
             format_settings["MACROS"]["BANNER_HEIGHT"]=sizes.group(2)
-        if "WIDTH" in format_settings["MACROS"]["banner"]:
-            format_settings["MACROS"]["banner"]["WIDTH"]=sizes.group(1)
-            format_settings["MACROS"]["banner"]["HEIGHT"]=sizes.group(2)
+        if "banner" in format_settings["MACROS"]:
+            if "WIDTH" in format_settings["MACROS"]["banner"]:
+                format_settings["MACROS"]["banner"]["WIDTH"]=sizes.group(1)
+                format_settings["MACROS"]["banner"]["HEIGHT"]=sizes.group(2)
         format_settings["WGW_API_PARAMS"]["size"]["width"]=sizes.group(1)
         format_settings["WGW_API_PARAMS"]["size"]["height"]=sizes.group(2)        
         with open(format+'\settings.json', 'w') as f:    
