@@ -14,9 +14,9 @@ for folder in subfolders:
             if (search):
                 size_found = True
         if(size_found):
-            print("keeping folder", folder)
+            print("keeping folder", folder, '✔️')
         else:
-            print("removing folder", folder)
+            print("removing folder", folder, '❌')
             shutil.rmtree(folder)
 
 #choose existing format for base
@@ -30,7 +30,7 @@ for format in formats:
 for format in formats:
     format_exists = os.path.exists(format)
     if not format_exists:
-        print("adding folder", format, "based on", base)
+        print("adding folder .\\" + format, "➕ based on", base)
         shutil.copytree(base, format)
         with open(format+'\settings.json', 'r') as f:
             format_settings = json.load(f)
