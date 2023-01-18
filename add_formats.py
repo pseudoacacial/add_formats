@@ -6,7 +6,7 @@ formats = scenario["creatives"]
 # remove unneeded sizes
 subfolders = [ f.path for f in os.scandir() if f.is_dir() ]
 for folder in subfolders:
-    folder_is_format = os.path.exists(folder+'\settings.json')
+    folder_is_format = os.path.exists(os.path.join(folder,'settings.json'))
     if (folder_is_format):
         size_found = False
         for format in formats:
@@ -30,9 +30,9 @@ for format in formats:
 for format in formats:
     format_exists = os.path.exists(format)
     if not format_exists:
-        print("adding folder .\\" + format, "➕ based on", base)
+        print("adding folder ./" + format, "➕ based on", base)
         shutil.copytree(base, format)
-        with open(format+'\settings.json', 'r') as f:
+        with open(os.path.join(format,'settings.json'), 'r') as f:
             format_settings = json.load(f)
         sizes = re.search("(\d+)x(\d+)",format)
         if "BANNER_WIDTH" in format_settings["MACROS"]:
@@ -44,5 +44,5 @@ for format in formats:
                 format_settings["MACROS"]["banner"]["HEIGHT"]=sizes.group(2)
         format_settings["WGW_API_PARAMS"]["size"]["width"]=sizes.group(1)
         format_settings["WGW_API_PARAMS"]["size"]["height"]=sizes.group(2)        
-        with open(format+'\settings.json', 'w') as f:    
+        with open(os.path.join(format,'settings.json'), 'w') as f:    
             json.dump(format_settings, f, indent = 4)
