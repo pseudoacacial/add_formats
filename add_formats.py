@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os, re, json, shutil
 
 with open('scenario.json', 'r') as f:
@@ -42,6 +43,10 @@ for format in formats:
             if "WIDTH" in format_settings["MACROS"]["banner"]:
                 format_settings["MACROS"]["banner"]["WIDTH"]=sizes.group(1)
                 format_settings["MACROS"]["banner"]["HEIGHT"]=sizes.group(2)
+        if "BANNER" in format_settings["MACROS"]:
+            if "WIDTH" in format_settings["MACROS"]["BANNER"]:
+                format_settings["MACROS"]["BANNER"]["WIDTH"]=sizes.group(1)
+                format_settings["MACROS"]["BANNER"]["HEIGHT"]=sizes.group(2)
         format_settings["WGW_API_PARAMS"]["size"]["width"]=sizes.group(1)
         format_settings["WGW_API_PARAMS"]["size"]["height"]=sizes.group(2)        
         with open(os.path.join(format,'settings.json'), 'w') as f:    
